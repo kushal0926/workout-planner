@@ -1,0 +1,35 @@
+import { SportShoe } from "lucide-react";
+import { Link } from "react-router";
+
+export default function Navbar() {
+  const user = true;
+  return (
+    <section className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
+      <div className="max-w-6xl mx-auto p-6 h-16 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-2 text-foreground ">
+          <SportShoe className="w-6 h-6 text-accent" />
+          <span className="font-semibold text-lg">Plan your workout through AI help</span>
+        </Link>
+
+        <nav>
+          {user ? (
+            <>
+              <Link to="/profile">
+                <button className="cursor-pointer">My plan</button>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="/auth/sign-in">
+                <button className="cursor-pointer">Sign In</button>
+              </Link>
+              <Link to="/auth/sign-up">
+                <button className="cursor-pointer ml-2">Sign Up</button>
+              </Link>
+            </>
+          )}
+        </nav>
+      </div>
+    </section>
+  );
+}
