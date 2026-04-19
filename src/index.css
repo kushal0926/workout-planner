@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
+@import "@neondatabase/neon-js/ui/tailwind";
 
 @theme inline {
   --font-sans: "Roboto", sans-serif;
@@ -8,8 +9,9 @@
   --color-muted: #a1a1a1;
   --color-border: #27272a;
   --color-card: #18181b;
-  --color-accent: #a3e635;
-  --color-accent-hover: #83cc16;
+  /*--color-accent: #a3e635;*/
+  --color-accent: #9c9fe0;
+  --color-cream: #f9f6f0;
 }
 
 @layer base {
@@ -29,6 +31,6 @@
   /*overiding better auth colors*/
   [data-slot="skeleton"],
   .animate-pulse {
-    background-color: var(--color-border) !important;
+    background-color: var(--color-background) !important;
   }
 }
