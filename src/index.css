@@ -9,7 +9,7 @@
   --color-muted: #a1a1a1;
   --color-border: #27272a;
   --color-card: #18181b;
-  /*--color-accent: #a3e635;*/
+  --color-accent: #a3e635;
   --color-accent: #9c9fe0;
   --color-cream: #f9f6f0;
 }
@@ -34,3 +34,4 @@
     background-color: var(--color-background) !important;
   }
 }
+

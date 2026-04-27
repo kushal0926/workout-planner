@@ -1,9 +1,11 @@
 import { SportShoe } from "lucide-react";
 import { Link } from "react-router";
 import { Button } from "../ui/Button";
+import { useAuth } from "../../hooks/useAuth";
+import { UserButton } from "@neondatabase/neon-js/auth/react";
 
 export default function Navbar() {
-  const user = false;
+  const { user } = useAuth();
   return (
     <section className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="max-w-6xl mx-auto p-6 h-16 flex items-center justify-between">
@@ -20,6 +22,7 @@ export default function Navbar() {
                   My plan
                 </Button>
               </Link>
+              <UserButton size="icon" />
             </>
           ) : (
             <>
