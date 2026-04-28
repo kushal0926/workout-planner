@@ -12,7 +12,7 @@ const Profile = () => {
   if (plan) {
     return <Navigate to="/onboarding" replace />;
   }
-  return <div> this is the profile page</div>;
+  return <div className="text-4xl mt-10"> this is the profile page</div>;
 };
 
 export default Profile;

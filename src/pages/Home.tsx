@@ -9,7 +9,7 @@ const Home = () => {
   }
   return (
     <section>
-      <h1>this is the home page</h1>
+      <h1 className="text-5xl mt-20">this is the home page</h1>
     </section>
   );
 };

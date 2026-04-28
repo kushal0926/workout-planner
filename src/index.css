@@ -2,16 +2,17 @@
 @import "tailwindcss";
 @import "@neondatabase/neon-js/ui/tailwind";
 
-@theme inline {
+@theme {
   --font-sans: "Roboto", sans-serif;
   --color-background: #1c1917;
   --color-foreground: #f9f6f0;
   --color-muted: #a1a1a1;
   --color-border: #27272a;
-  --color-card: #18181b;
+  --color-card: #f9f6f0;
   --color-accent: #a3e635;
   --color-accent: #9c9fe0;
   --color-cream: #f9f6f0;
+  --color-charcol: #1c1917;
 }
 
 @layer base {
@@ -34,4 +35,3 @@
     background-color: var(--color-background) !important;
   }
 }
-

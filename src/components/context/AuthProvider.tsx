@@ -12,8 +12,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const result = await authClient.getSession();
         setNeonUser(result?.data?.user ?? null);
       } catch (error) {
-        console.error(error);
         setNeonUser(null);
+        console.error("failed to load user", error);
       } finally {
         setIsLoading(true);
       }
