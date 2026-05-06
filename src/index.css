@@ -32,6 +32,6 @@
   /*overiding better auth colors*/
   [data-slot="skeleton"],
   .animate-pulse {
-    background-color: var(--color-background) !important;
+    background-color: #1c1917 !important;
   }
 }

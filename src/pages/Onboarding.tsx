@@ -7,7 +7,12 @@ import { Button } from "../components/ui/Button";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 
-const goalOptions = [
+type Options = {
+  value: string;
+  label: string;
+};
+
+const goalOptions: Options[] = [
   { value: "bulk", label: "Build Muscle (Bulk)" },
   { value: "cut", label: "Lose Fat (Cut)" },
   { value: "recomp", label: "Body Recomposition" },
@@ -15,13 +20,13 @@ const goalOptions = [
   { value: "endurance", label: "Improve Endurance" },
 ];
 
-const experienceOptions = [
+const experienceOptions: Options[] = [
   { value: "beginner", label: "Beginner (0-1 years)" },
   { value: "intermediate", label: "Intermediate (1-3 years)" },
   { value: "advanced", label: "Advanced (3+ years)" },
 ];
 
-const daysOptions = [
+const daysOptions: Options[] = [
   { value: "2", label: "2 days per week" },
   { value: "3", label: "3 days per week" },
   { value: "4", label: "4 days per week" },
@@ -29,20 +34,20 @@ const daysOptions = [
   { value: "6", label: "6 days per week" },
 ];
 
-const sessionOptions = [
+const sessionOptions: Options[] = [
   { value: "30", label: "30 minutes" },
   { value: "45", label: "45 minutes" },
   { value: "60", label: "60 minutes" },
   { value: "90", label: "90 minutes" },
 ];
 
-const equipmentOptions = [
+const equipmentOptions: Options[] = [
   { value: "full_gym", label: "Full Gym Access" },
   { value: "home", label: "Home Gym" },
   { value: "dumbbells", label: "Dumbbells Only" },
 ];
 
-const splitOptions = [
+const splitOptions: Options[] = [
   { value: "full_body", label: "Full Body" },
   { value: "upper_lower", label: "Upper/Lower Split" },
   { value: "ppl", label: "Push/Pull/Legs" },
@@ -66,7 +71,8 @@ const Onboarding = () => {
   }
 
   async function handleQuestions(e: React.SubmitEvent) {
-    e.preventDefault()
+    e.preventDefault();
+    // todo here
   }
 
   if (!user) {
@@ -78,7 +84,9 @@ const Onboarding = () => {
         <div className="max-w-xl mx-auto">
           {/* step 1 asking questions*/}
           <Card variant="bordered">
-            <h1 className="text-2xl font-bold text-center">Tell us about yourself</h1>
+            <h1 className="text-2xl font-bold text-center">
+              Tell us about yourself
+            </h1>
             <p className="text-gray-500 mb-6 text-center">
               Help us create the perfect plan for you.
             </p>
@@ -139,7 +147,11 @@ const Onboarding = () => {
               />
 
               <div className="flex gap-3 pt-2">
-                <Button type="submit" className="flex-1 gap-2" variant="secondary">
+                <Button
+                  type="submit"
+                  className="flex-1 gap-2"
+                  variant="secondary"
+                >
                   Generate My Plan <ArrowRight className="w-4 h-4" />
                 </Button>
               </div>

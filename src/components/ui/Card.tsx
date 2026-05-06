@@ -1,14 +1,14 @@
-import { type HTMLAttributes, forwardRef } from 'react';
+import { type HTMLAttributes, forwardRef } from "react";
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'bordered';
+  variant?: "default" | "bordered";
 }
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
-  ({ className = '', variant = 'default', children, ...props }, ref) => {
+  ({ className = "", variant = "default", children, ...props }, ref) => {
     const variants = {
-      default: 'bg-cream',
-      bordered: 'bg-[var(--color-card)] border border-[var(--color-border)]',
+      default: "bg-charcol",
+      bordered: "bg-[var(--color-card)] border border-[var(--color-border)]",
     };
 
     return (
@@ -20,7 +20,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
         {children}
       </div>
     );
-  }
+  },
 );
 
-Card.displayName = 'Card';
+Card.displayName = "Card";

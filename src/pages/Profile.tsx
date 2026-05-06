@@ -3,7 +3,7 @@ import { useAuth } from "../hooks/useAuth";
 
 const Profile = () => {
   const { user, isLoading } = useAuth();
-  const plan = true;
+  const plan: boolean = true;
 
   if (!user && !isLoading) {
     return <Navigate to="/auth/sign-in" replace />;
