@@ -1,7 +1,7 @@
 {
   "extends": "@tsconfig/node24/tsconfig.json",
   "compilerOptions": {
-    "rootDir": "./src",
+    "rootDir": "./",
     "outDir": "./dist",
     "module": "ESNext",
     "moduleResolution": "bundler",
@@ -27,9 +27,8 @@
     "noPropertyAccessFromIndexSignature": true,
     "erasableSyntaxOnly": true,
     "noErrorTruncation": false, // use true for debug purpose -> shows full error if true
-    "exactOptionalPropertyTypes": true,
-    "ignoreDeprecations": "6.0"
+    "exactOptionalPropertyTypes": true
   },
-  "include": ["src"],
+  "include": ["src", "lib"],
   "exclude": ["node_modules", "dist"]
 }

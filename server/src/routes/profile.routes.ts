@@ -3,6 +3,6 @@ import { Router } from "express";
 
 const porfileRoutes = Router();
 
-porfileRoutes.get("/", handleProfileSubmit);
+porfileRoutes.post("/", handleProfileSubmit);
 
 export default porfileRoutes;
