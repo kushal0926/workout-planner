@@ -1,0 +1,28 @@
+version: "3"
+
+tasks:
+  dev:
+    desc: start all apps in dev the mode
+    cmds:
+      - |
+        echo "running all dev modes"
+        pnpm --parallel --filter "*" dev
+  build:
+    desc: build packages then apps
+    cmds:
+      - pnpm tsc -b && vite build
+      - cd server && pnpm tsc
+  lint:
+    desc: lint all the packages
+    cmds:
+      - pnpm eslint .
+      - cd server && pnpm oxlint
+  install:
+    desc: install all the dependencies
+    cmds:
+      - pnpm install
+  format:
+    desc: format all packages
+    cmds:
+      - pnpm fmt
+      - cd server && pnpm fmt

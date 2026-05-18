@@ -27,9 +27,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     loadUser();
   }, []);
 
-  async function saveProfile(
-    profileData: Omit<UserProfile, "userId" | "updatedAt">,
-  ) {
+  async function saveProfile(profileData: Omit<UserProfile, "userId" | "updatedAt">) {
     if (!neonUser) {
       throw new Error("user must be authenticated to save profile");
     }

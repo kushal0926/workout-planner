@@ -4,7 +4,7 @@ import { Card } from "../components/ui/Card";
 import { Select } from "../components/ui/Select";
 import { Textarea } from "../components/ui/Textarea";
 import { Button } from "../components/ui/Button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
 import { useState } from "react";
 import type { UserProfile } from "../types";
 
@@ -58,7 +58,7 @@ const splitOptions: Options[] = [
 const Onboarding = () => {
   const { user, saveProfile } = useAuth();
   const [formData, setFormData] = useState({
-    goal: "build strength",
+    goal: "strength",
     experience: "beginner",
     daysPerWeek: "4",
     sessionLength: "60",
@@ -66,6 +66,7 @@ const Onboarding = () => {
     injuries: "",
     preferredSplit: "upper_lower",
   });
+  const [isGenerating, setIsGenerating] = useState(false);
 
   function updateForm(field: string, value: string) {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -83,7 +84,16 @@ const Onboarding = () => {
       preferredSplit: formData.preferredSplit as UserProfile["preferredSplit"],
     };
 
-    await saveProfile(profile);
+    try {
+      await saveProfile(profile);
+      setIsGenerating(true);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("failed to save profile", error.message);
+      }
+    } finally {
+      setIsGenerating(false);
+    }
   }
 
   if (!user) {
@@ -94,80 +104,93 @@ const Onboarding = () => {
       <div className="min-h-screen pt-20 pb-10 px-7">
         <div className="max-w-xl mx-auto">
           {/* step 1 asking questions*/}
-          <Card variant="bordered">
-            <h1 className="text-2xl font-bold text-center">
-              Tell us about yourself
-            </h1>
-            <p className="text-gray-500 mb-6 text-center">
-              Help us create the perfect plan for you.
-            </p>
-            <form onSubmit={handleQuestions} className="space-y-5">
-              <Select
-                id="goal"
-                label="What's your primary goal?"
-                options={goalOptions}
-                value={formData.goal}
-                onChange={(e) => updateForm("goal", e.target.value)}
-              />
-              <Select
-                id="experience"
-                label="Training experience"
-                options={experienceOptions}
-                value={formData.experience}
-                onChange={(e) => updateForm("experience", e.target.value)}
-              />
-              <div className="grid grid-cols-2 gap-4">
+          {!isGenerating ? (
+            <Card variant="bordered">
+              <h1 className="text-2xl font-bold text-center">
+                Tell us about yourself
+              </h1>
+              <p className="text-gray-500 mb-6 text-center">
+                Help us create the perfect plan for you.
+              </p>
+              <form onSubmit={handleQuestions} className="space-y-5">
                 <Select
-                  id="daysPerWeek"
-                  label="Days per week"
-                  options={daysOptions}
-                  value={formData.daysPerWeek}
-                  onChange={(e) => updateForm("daysPerWeek", e.target.value)}
+                  id="goal"
+                  label="What's your primary goal?"
+                  options={goalOptions}
+                  value={formData.goal}
+                  onChange={(e) => updateForm("goal", e.target.value)}
                 />
                 <Select
-                  id="sessionLength"
-                  label="Session length"
-                  options={sessionOptions}
-                  value={formData.sessionLength}
-                  onChange={(e) => updateForm("sessionLength", e.target.value)}
+                  id="experience"
+                  label="Training experience"
+                  options={experienceOptions}
+                  value={formData.experience}
+                  onChange={(e) => updateForm("experience", e.target.value)}
                 />
-              </div>
-              <Select
-                id="equipment"
-                label="Equipment access"
-                options={equipmentOptions}
-                value={formData.equipment}
-                onChange={(e) => updateForm("equipment", e.target.value)}
-              />
+                <div className="grid grid-cols-2 gap-4">
+                  <Select
+                    id="daysPerWeek"
+                    label="Days per week"
+                    options={daysOptions}
+                    value={formData.daysPerWeek}
+                    onChange={(e) => updateForm("daysPerWeek", e.target.value)}
+                  />
+                  <Select
+                    id="sessionLength"
+                    label="Session length"
+                    options={sessionOptions}
+                    value={formData.sessionLength}
+                    onChange={(e) =>
+                      updateForm("sessionLength", e.target.value)
+                    }
+                  />
+                </div>
+                <Select
+                  id="equipment"
+                  label="Equipment access"
+                  options={equipmentOptions}
+                  value={formData.equipment}
+                  onChange={(e) => updateForm("equipment", e.target.value)}
+                />
 
-              <Select
-                id="preferredSplit"
-                label="Preferred training split"
-                options={splitOptions}
-                value={formData.preferredSplit}
-                onChange={(e) => updateForm("preferredSplit", e.target.value)}
-              />
+                <Select
+                  id="preferredSplit"
+                  label="Preferred training split"
+                  options={splitOptions}
+                  value={formData.preferredSplit}
+                  onChange={(e) => updateForm("preferredSplit", e.target.value)}
+                />
 
-              <Textarea
-                id="injuries"
-                label="Any injuries or limitations? (optional)"
-                placeholder="E.g., lower back issues, shoulder impingement..."
-                rows={3}
-                value={formData.injuries}
-                onChange={(e) => updateForm("injuries", e.target.value)}
-              />
+                <Textarea
+                  id="injuries"
+                  label="Any injuries or limitations? (optional)"
+                  placeholder="E.g., lower back issues, shoulder impingement..."
+                  rows={3}
+                  value={formData.injuries}
+                  onChange={(e) => updateForm("injuries", e.target.value)}
+                />
 
-              <div className="flex gap-3 pt-2">
-                <Button
-                  type="submit"
-                  className="flex-1 gap-2"
-                  variant="secondary"
-                >
-                  Generate My Plan <ArrowRight className="w-4 h-4" />
-                </Button>
-              </div>
-            </form>
-          </Card>
+                <div className="flex gap-3 pt-2">
+                  <Button
+                    type="submit"
+                    className="flex-1 gap-2"
+                    variant="secondary"
+                  >
+                    Generate My Plan <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </div>
+              </form>
+            </Card>
+          ) : (
+            <Card variant="bordered" className="text-center py-10">
+              <Loader2 className="w-12 h-12 text-accent mx-auto mb-6 animate-spin" />
+              <h1 className="text-2xl font-bold mb-2">creating your plan</h1>
+              <p className="text-muted">
+                {" "}
+                building your personalized training program...
+              </p>
+            </Card>
+          )}
         </div>
       </div>
     </SignedIn>

@@ -5,7 +5,9 @@ import dotenv from "dotenv";
 import porfileRoutes from "./routes/profile.routes";
 import planRoutes from "./routes/plan.routes";
 
-dotenv.config();
+dotenv.config({
+  quiet: true,
+});
 
 const app = express();
 const PORT = process.env["PORT"];

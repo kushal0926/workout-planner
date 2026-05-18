@@ -1,5 +1,5 @@
 {
-  "name": "gym_planner",
+  "name": "workout-planner",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -28,6 +28,8 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.0",
     "eslint": "^9.39.4",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.4.0",
