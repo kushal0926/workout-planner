@@ -106,9 +106,7 @@ const Onboarding = () => {
           {/* step 1 asking questions*/}
           {!isGenerating ? (
             <Card variant="bordered">
-              <h1 className="text-2xl font-bold text-center">
-                Tell us about yourself
-              </h1>
+              <h1 className="text-2xl font-bold text-center">Tell us about yourself</h1>
               <p className="text-gray-500 mb-6 text-center">
                 Help us create the perfect plan for you.
               </p>
@@ -140,9 +138,7 @@ const Onboarding = () => {
                     label="Session length"
                     options={sessionOptions}
                     value={formData.sessionLength}
-                    onChange={(e) =>
-                      updateForm("sessionLength", e.target.value)
-                    }
+                    onChange={(e) => updateForm("sessionLength", e.target.value)}
                   />
                 </div>
                 <Select
@@ -171,11 +167,7 @@ const Onboarding = () => {
                 />
 
                 <div className="flex gap-3 pt-2">
-                  <Button
-                    type="submit"
-                    className="flex-1 gap-2"
-                    variant="secondary"
-                  >
+                  <Button type="submit" className="flex-1 gap-2" variant="secondary">
                     Generate My Plan <ArrowRight className="w-4 h-4" />
                   </Button>
                 </div>
@@ -185,10 +177,7 @@ const Onboarding = () => {
             <Card variant="bordered" className="text-center py-10">
               <Loader2 className="w-12 h-12 text-accent mx-auto mb-6 animate-spin" />
               <h1 className="text-2xl font-bold mb-2">creating your plan</h1>
-              <p className="text-muted">
-                {" "}
-                building your personalized training program...
-              </p>
+              <p className="text-muted"> building your personalized training program...</p>
             </Card>
           )}
         </div>

@@ -3,21 +3,13 @@ import { useAuth } from "../hooks/useAuth";
 import { Card } from "../components/ui/Card";
 import { Link } from "react-router";
 import { Button } from "../components/ui/Button";
-import {
-  ArrowRight,
-  Calendar,
-  Clock,
-  Sparkles,
-  Target,
-  Zap,
-} from "lucide-react";
+import { ArrowRight, Calendar, Clock, Sparkles, Target, Zap } from "lucide-react";
 
 const features = [
   {
     icon: Sparkles,
     title: "AI-Powered Plans",
-    description:
-      "Get a training program tailored to your goals, experience, and schedule.",
+    description: "Get a training program tailored to your goals, experience, and schedule.",
   },
   {
     icon: Target,
@@ -28,14 +20,12 @@ const features = [
   {
     icon: Calendar,
     title: "Flexible Scheduling",
-    description:
-      "Plans that fit your lifestyle. Train 2 days or 6 — we adapt to you.",
+    description: "Plans that fit your lifestyle. Train 2 days or 6 — we adapt to you.",
   },
   {
     icon: Clock,
     title: "Time-Efficient",
-    description:
-      "Every workout is designed to maximize results in your available time.",
+    description: "Every workout is designed to maximize results in your available time.",
   },
 ];
 
@@ -56,9 +46,7 @@ const Home = () => {
         <div className="relative max-w-6xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-border mb-8">
             <Zap className="w-4 h-4 text-border" />
-            <span className="text-sm text-border font-bold">
-              AI-powered workout plans
-            </span>
+            <span className="text-sm text-border font-bold">AI-powered workout plans</span>
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
@@ -68,8 +56,8 @@ const Home = () => {
           </h1>
 
           <p className="text-xl text-muted max-w-2xl mx-auto mb-10">
-            Stop guessing. Get a personalized training program built by AI,
-            tailored to your goals, experience, and schedule.
+            Stop guessing. Get a personalized training program built by AI, tailored to your goals,
+            experience, and schedule.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -94,8 +82,7 @@ const Home = () => {
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Why planYourWorkout?</h2>
             <p className="text-muted text-lg max-w-2xl mx-auto">
-              We combine fitness expertise with AI to create programs that
-              actually work for you.
+              We combine fitness expertise with AI to create programs that actually work for you.
             </p>
           </div>
 

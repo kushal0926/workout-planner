@@ -1,9 +1,8 @@
+import handlePlanGenerate from "@/controller/plan.controller";
 import { Router } from "express";
 
 const planRoutes = Router();
 
-planRoutes.get("/", (_, res) => {
-  res.json({ message: "Plan endpoint" });
-});
+planRoutes.post("/generate ", handlePlanGenerate);
 
 export default planRoutes;
