@@ -7,6 +7,7 @@ import { Button } from "../components/ui/Button";
 import { ArrowRight, Loader2 } from "lucide-react";
 import { useState } from "react";
 import type { UserProfile } from "../types";
+import { useNavigate } from "react-router";
 
 type Options = {
   value: string;
@@ -56,7 +57,7 @@ const splitOptions: Options[] = [
 ];
 
 const Onboarding = () => {
-  const { user, saveProfile } = useAuth();
+  const { user, saveProfile, generatePlan } = useAuth();
   const [formData, setFormData] = useState({
     goal: "strength",
     experience: "beginner",
@@ -67,6 +68,7 @@ const Onboarding = () => {
     preferredSplit: "upper_lower",
   });
   const [isGenerating, setIsGenerating] = useState(false);
+  const navigate = useNavigate()
 
   function updateForm(field: string, value: string) {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -87,6 +89,8 @@ const Onboarding = () => {
     try {
       await saveProfile(profile);
       setIsGenerating(true);
+      await generatePlan();
+      navigate("/profile")
     } catch (error) {
       if (error instanceof Error) {
         console.error("failed to save profile", error.message);

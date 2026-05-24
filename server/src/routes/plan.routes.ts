@@ -3,6 +3,6 @@ import { Router } from "express";
 
 const planRoutes = Router();
 
-planRoutes.post("/generate ", handlePlanGenerate);
+planRoutes.post("/generate", handlePlanGenerate);
 
 export default planRoutes;

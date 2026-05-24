@@ -1,3 +1,4 @@
+import { generateTrainingPlan } from "@/lib/openAI";
 import { prisma } from "@/lib/prisma";
 import type { Request, Response } from "express";
 import httpsStatus from "http-status";
@@ -7,9 +8,7 @@ const handlePlanGenerate = async (req: Request, res: Response) => {
     const { userId } = req.body;
 
     if (!userId) {
-      return res
-        .status(httpsStatus.BAD_REQUEST)
-        .json({ error: "userId is required" });
+      return res.status(httpsStatus.OK).json({ error: "User ID is required" });
     }
 
     const profile = await prisma.userProfile.findUnique({
@@ -19,10 +18,10 @@ const handlePlanGenerate = async (req: Request, res: Response) => {
     if (!profile) {
       return res
         .status(httpsStatus.BAD_REQUEST)
-        .json({ error: "user profile not found, complete onboarding first." });
+        .json({ error: "User profile not found. Complete onboarding first." });
     }
 
-    // plans
+    // NEED THE PLAN TABLE
     const latestPlan = await prisma.trainingPlans.findFirst({
       where: { user_id: userId },
       orderBy: { created_at: "desc" },
@@ -30,16 +29,24 @@ const handlePlanGenerate = async (req: Request, res: Response) => {
     });
 
     const nextVersion = latestPlan ? latestPlan.version + 1 : 1;
+    let planJson;
 
-    // ai
-    let planJSON
+    try {
+      planJson = await generateTrainingPlan(profile);
+    } catch (error) {
+      console.error("AI generation failed:", error);
+      return res.status(httpsStatus.INTERNAL_SERVER_ERROR).json({
+        error: "Failed to generate training plan. Please try again.",
+        details: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
 
-    const planText = JSON.stringify(planJSON, null, 2);
+    const planText = JSON.stringify(planJson, null, 2);
 
     const newPlan = await prisma.trainingPlans.create({
       data: {
         user_id: userId,
-        plan_json: planJSON as any,
+        plan_json: planJson as any,
         plan_text: planText,
         version: nextVersion,
       },
@@ -51,12 +58,8 @@ const handlePlanGenerate = async (req: Request, res: Response) => {
       createdAt: newPlan.created_at,
     });
   } catch (error) {
-    if (error instanceof Error) {
-      console.error("error generating plan:", error.message);
-      res
-        .status(httpsStatus.INTERNAL_SERVER_ERROR)
-        .json({ error: "failed to generate plan." });
-    }
+    console.error("Error generating plan:", error);
+    res.status(httpsStatus.INTERNAL_SERVER_ERROR).json({ error: "Failed to generate plan" });
   }
 };
 

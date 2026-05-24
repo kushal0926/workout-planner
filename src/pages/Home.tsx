@@ -20,7 +20,7 @@ const features = [
   {
     icon: Calendar,
     title: "Flexible Scheduling",
-    description: "Plans that fit your lifestyle. Train 2 days or 6 — we adapt to you.",
+    description: "Plans that fit your lifestyle. Train 2 days or 6, we adapt to you.",
   },
   {
     icon: Clock,
@@ -91,13 +91,15 @@ const Home = () => {
               <Card
                 key={feature.title}
                 variant="bordered"
-                className="group hover:border-accent/50 transition-colors"
+                className="group hover:border-accent/50 transition-colors flex flex-col items-center p-10"
               >
-                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
-                  <feature.icon className="w-6 h-6 text-accent" />
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors ">
+                  <feature.icon className="w-12 h-12 text-charcol" />
                 </div>
-                <h3 className="font-semibold text-lg mb-2">{feature.title}</h3>
-                <p className="text-border text-sm">{feature.description}</p>
+                <h3 className="text-charcol font-semibold text-lg mb-2 text-center">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 text-sm text-center ">{feature.description}</p>
               </Card>
             ))}
           </div>

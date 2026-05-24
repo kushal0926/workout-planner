@@ -27,7 +27,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     loadUser();
   }, []);
 
-  async function saveProfile(profileData: Omit<UserProfile, "userId" | "updatedAt">) {
+  async function saveProfile(
+    profileData: Omit<UserProfile, "userId" | "updatedAt">,
+  ) {
     if (!neonUser) {
       throw new Error("user must be authenticated to save profile");
     }
@@ -35,9 +37,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     await api.saveProfile(neonUser.id, profileData);
   }
 
+  async function generatePlan() {
+    if (!neonUser) {
+      throw new Error("user must be authenticated to save profile");
+    }
+
+    await api.generatePlan(neonUser.id);
+  }
+
   return (
-    <AuthContext.Provider value={{ user: neonUser, isLoading, saveProfile }}>
+    <AuthContext.Provider
+      value={{ user: neonUser, isLoading, saveProfile, generatePlan }}
+    >
       {children}
     </AuthContext.Provider>
   );
 };
+

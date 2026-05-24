@@ -8,6 +8,7 @@ export interface AuthContextType {
   user: User | null;
   isLoading: boolean;
   saveProfile: (profile: Omit<UserProfile, "userId" | "updatedAt">) => Promise<void>;
+   generatePlan: () => Promise<void>;
 }
 
 export interface UserProfile {

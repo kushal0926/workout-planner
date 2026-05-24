@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 @import "@neondatabase/neon-js/ui/tailwind";
 
 @theme {
-  --font-sans: "Roboto", sans-serif;
+  --font-sans: "Work Sans", sans-serif;
   --color-background: #1c1917;
   --color-foreground: #f9f6f0;
   --color-muted: #a1a1a1;

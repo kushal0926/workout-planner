@@ -4,9 +4,8 @@ tasks:
   dev:
     desc: start all apps in dev the mode
     cmds:
-      - |
-        echo "running all dev modes"
-        pnpm --parallel --filter "*" dev
+      - echo "running all dev modes"
+      - pnpm dev && cd server && pnpm dev
   build:
     desc: build packages then apps
     cmds:

@@ -10,7 +10,7 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto p-6 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 text-foreground ">
           <img src="/favicon.png" alt="logo" className="w-10 h-10" />
-          <span className="font-semibold text-lg">planYourWorkout</span>
+          <span className=" text-xl">pulsePlan</span>
         </Link>
 
         <nav>
