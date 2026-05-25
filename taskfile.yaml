@@ -3,9 +3,38 @@ version: "3"
 tasks:
   dev:
     desc: start all apps in dev the mode
+    deps:
+      - task: dev:web
+      - task: dev:server
+
+  dev:web:
+    desc: start web localhost
     cmds:
-      - echo "running all dev modes"
-      - pnpm dev && cd server && pnpm dev
+      - pnpm dev
+
+  dev:server:
+    desc: Start server
+    dir: server
+    cmds:
+      - pnpm dev
+
+  fmt:
+    desc: format all packages
+    deps:
+      - task: fmt:web
+      - task: fmt:server
+
+  fmt:web:
+    desc: format web files
+    cmds:
+      - pnpm fmt
+
+  fmt:server:
+    desc: format server files
+    dir: server
+    cmds:
+      - pnpm fmt
+
   build:
     desc: build packages then apps
     cmds:
@@ -20,8 +49,3 @@ tasks:
     desc: install all the dependencies
     cmds:
       - pnpm install
-  format:
-    desc: format all packages
-    cmds:
-      - pnpm fmt
-      - cd server && pnpm fmt

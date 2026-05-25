@@ -10,21 +10,31 @@ async function post(path: string, body: object) {
   });
 
   if (!res.ok) {
-    throw new Error((await res.json().catch(() => ({}))).error || "response failed");
+    throw new Error((await res.json().catch(() => ({}))).error || "Response failed");
   }
 
   return res.json();
 }
 
-// async function get() {
-// to do
-// }
+async function get(path: string) {
+  const res = await fetch(`${BASE_URL}/api/v1${path}`);
+  if (!res.ok) {
+    throw new Error((await res.json().catch(() => ({}))).error || "Request failed");
+  }
+
+  return res.json();
+}
 
 export const api = {
   saveProfile: (userId: string, profile: Omit<UserProfile, "userId" | "updatedAt">) => {
     return post("/profile", { userId, ...profile });
   },
+
   generatePlan: (userId: string) => {
     return post("/plan/generate", { userId });
+  },
+
+  getCurrentPlan: (userId: string) => {
+    return get(`/plan/current?userId=${userId}`);
   },
 };

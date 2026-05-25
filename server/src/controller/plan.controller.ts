@@ -2,13 +2,14 @@ import { generateTrainingPlan } from "@/lib/openAI";
 import { prisma } from "@/lib/prisma";
 import type { Request, Response } from "express";
 import httpsStatus from "http-status";
+import { Prisma } from "../../generated/prisma/client";
 
-const handlePlanGenerate = async (req: Request, res: Response) => {
+export const handlePlanGenerate = async (req: Request, res: Response) => {
   try {
     const { userId } = req.body;
 
     if (!userId) {
-      return res.status(httpsStatus.OK).json({ error: "User ID is required" });
+      return res.status(httpsStatus.BAD_REQUEST).json({ error: "User ID is required" });
     }
 
     const profile = await prisma.userProfile.findUnique({
@@ -29,12 +30,14 @@ const handlePlanGenerate = async (req: Request, res: Response) => {
     });
 
     const nextVersion = latestPlan ? latestPlan.version + 1 : 1;
+
     let planJson;
 
     try {
       planJson = await generateTrainingPlan(profile);
     } catch (error) {
       console.error("AI generation failed:", error);
+
       return res.status(httpsStatus.INTERNAL_SERVER_ERROR).json({
         error: "Failed to generate training plan. Please try again.",
         details: error instanceof Error ? error.message : "Unknown error",
@@ -46,7 +49,7 @@ const handlePlanGenerate = async (req: Request, res: Response) => {
     const newPlan = await prisma.trainingPlans.create({
       data: {
         user_id: userId,
-        plan_json: planJson as any,
+        plan_json: planJson as unknown as Prisma.InputJsonValue,
         plan_text: planText,
         version: nextVersion,
       },
@@ -59,8 +62,38 @@ const handlePlanGenerate = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error("Error generating plan:", error);
+
     res.status(httpsStatus.INTERNAL_SERVER_ERROR).json({ error: "Failed to generate plan" });
   }
 };
 
-export default handlePlanGenerate;
+export const handleGetPlan = async (req: Request, res: Response) => {
+  try {
+    const userId = req.query["userId"] as string;
+    if (!userId) {
+      return res.status(httpsStatus.BAD_REQUEST).json({ error: "User Id is require" });
+    }
+
+    const plan = await prisma.trainingPlans.findFirst({
+      where: { user_id: userId },
+      orderBy: { created_at: "desc" },
+    });
+
+    if (!plan) {
+      return res.status(httpsStatus.NOT_FOUND).json({ error: "No plan found" });
+    }
+
+    res.json({
+      id: plan.id,
+      userId: plan.user_id,
+      planJson: plan.plan_json,
+      planText: plan.plan_text,
+      version: plan.version,
+      createdAt: plan.created_at,
+    });
+  } catch (error) {
+    console.error("Error fetching plan:", error);
+
+    res.status(httpsStatus.INTERNAL_SERVER_ERROR).json({ error: "Failed to fech plan" });
+  }
+};

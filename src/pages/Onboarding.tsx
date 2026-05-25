@@ -68,7 +68,7 @@ const Onboarding = () => {
     preferredSplit: "upper_lower",
   });
   const [isGenerating, setIsGenerating] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function updateForm(field: string, value: string) {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -90,7 +90,7 @@ const Onboarding = () => {
       await saveProfile(profile);
       setIsGenerating(true);
       await generatePlan();
-      navigate("/profile")
+      navigate("/profile");
     } catch (error) {
       if (error instanceof Error) {
         console.error("failed to save profile", error.message);
@@ -110,8 +110,8 @@ const Onboarding = () => {
           {/* step 1 asking questions*/}
           {!isGenerating ? (
             <Card variant="bordered">
-              <h1 className="text-2xl font-bold text-center">Tell us about yourself</h1>
-              <p className="text-gray-500 mb-6 text-center">
+              <h1 className="text-2xl font-bold text-center text-accent">Tell us about yourself</h1>
+              <p className="text-muted mb-6 text-center">
                 Help us create the perfect plan for you.
               </p>
               <form onSubmit={handleQuestions} className="space-y-5">

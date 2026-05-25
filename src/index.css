@@ -4,11 +4,11 @@
 
 @theme {
   --font-sans: "Work Sans", sans-serif;
-  --color-background: #1c1917;
+  --color-background: #000;
   --color-foreground: #f9f6f0;
   --color-muted: #a1a1a1;
   --color-border: #27272a;
-  --color-card: #f9f6f0;
+  --color-card: #1c1917;
   --color-accent: #a3e635;
   --color-accent: #9c9fe0;
   --color-cream: #f9f6f0;
