@@ -19,9 +19,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         } else {
           setNeonUser(null);
         }
-      } catch (error) {
+      } catch (err) {
         setNeonUser(null);
-        console.error("failed to load user", error);
+        console.error("Failed to load user:", err);
       } finally {
         setIsLoading(false);
       }
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     loadUser();
   }, []);
 
-  // refreshData memoize
+  // refreshData memoized
   const refreshData = useCallback(async () => {
     if (!neonUser || isRefreshingRef.current) return;
 
@@ -49,8 +49,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           createdAt: planData.createdAt,
         });
       }
-    } catch (error) {
-      console.error("Error refreshing data:", error);
+    } catch (err) {
+      console.error("Error refreshing data:", err);
     } finally {
       isRefreshingRef.current = false;
     }
@@ -58,20 +58,32 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   async function saveProfile(profileData: Omit<UserProfile, "userId" | "updatedAt">) {
     if (!neonUser) {
-      throw new Error("user must be authenticated to save profile");
+      throw new Error("User must be authenticated to save profile");
     }
 
-    await api.saveProfile(neonUser.id, profileData);
-    await refreshData();
+    try {
+      await api.saveProfile(neonUser.id, profileData);
+      await refreshData();
+    } catch (err) {
+      const errorMsg = err instanceof Error ? err.message : "Failed to save profile";
+      console.error("Error saving profile:", errorMsg);
+      throw err;
+    }
   }
 
   async function generatePlan() {
     if (!neonUser) {
-      throw new Error("user must be authenticated to save profile");
+      throw new Error("User must be authenticated to generate plan");
     }
 
-    await api.generatePlan(neonUser.id);
-    await refreshData();
+    try {
+      await api.generatePlan(neonUser.id);
+      await refreshData();
+    } catch (err) {
+      const errorMsg = err instanceof Error ? err.message : "Failed to generate plan";
+      console.error("Error generating plan:", errorMsg);
+      throw err;
+    }
   }
 
   return (

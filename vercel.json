@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "buildCommand": "pnpm install && pnpm build",
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "functions": {
+    "server/**": {
+      "runtime": "nodejs20.x"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/v1/:path*",
+      "destination": "/server/dist/index.js"
+    }
+  ]
+}

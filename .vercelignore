@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+pnpm-lock.yaml
+server/node_modules/
+
+# Build artifacts
+dist/
+build/
+*.log
+
+# Environment files (never deploy secrets)
+.env
+.env.local
+.env.*.local
+
+# Development files
+.git/
+.gitignore
+.husky/
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Source files that will be built
+src/
+server/src/
+tsconfig*.json
+
+# Other
+README.md
+.oxfmtrc.json
+.oxlintrc.json
+eslint.config.js
+taskfile.yaml
+pnpm-workspace.yaml
