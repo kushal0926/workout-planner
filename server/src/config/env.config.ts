@@ -26,4 +26,3 @@ if (!DATABASE_URL) {
 if (!OPENROUTER_KEY) {
   throw new Error("OPENROUTER_KEY is not set in environment variables");
 }
-

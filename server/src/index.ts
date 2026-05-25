@@ -36,7 +36,7 @@ app.use(
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-  })
+  }),
 );
 
 app.use(cookieParser());
@@ -66,14 +66,12 @@ app.use((_req, res) => {
 });
 
 // Global error handling middleware
-app.use(
-  (err: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
-    console.error("Error:", err.message);
-    res.status(500).json({
-      error: NODE_ENV === "production" ? "Internal server error" : err.message,
-    });
-  }
-);
+app.use((err: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  console.error("Error:", err.message);
+  res.status(500).json({
+    error: NODE_ENV === "production" ? "Internal server error" : err.message,
+  });
+});
 
 // Bind to 0.0.0.0 for Vercel compatibility
 app.listen(parseInt(port), "0.0.0.0", () => {

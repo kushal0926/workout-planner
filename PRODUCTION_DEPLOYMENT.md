@@ -7,20 +7,24 @@ This document outlines all the production-readiness improvements and deployment 
 ### 1. **Security Enhancements**
 
 #### Environment Variables
+
 - ✅ Created `.env.example` files documenting all required variables
 - ✅ Added `.env` files to `.gitignore` to prevent credential leaks
 - ✅ Implemented environment validation in `server/src/config/env.config.ts`
 
 #### Security Headers
+
 - ✅ Installed and configured **Helmet** middleware for HTTP security headers
 - ✅ Provides protection against common vulnerabilities (XSS, clickjacking, etc.)
 
 #### CORS Configuration
+
 - ✅ Restricted CORS to specific domains via `CORS_ORIGINS` env variable
 - ✅ Added proper CORS headers configuration
 - ✅ Credentials are only allowed from whitelisted origins
 
 #### Rate Limiting
+
 - ✅ Installed and configured **express-rate-limit** middleware
 - ✅ Limited to 100 requests per 15 minutes per IP
 - ✅ Applied to all `/api/` endpoints
@@ -35,12 +39,14 @@ This document outlines all the production-readiness improvements and deployment 
 ### 3. **API Improvements**
 
 #### Frontend API Client
+
 - ✅ Added timeout handling (30s)
 - ✅ Improved error messages with HTTP status codes
 - ✅ Environment-based API URL configuration
 - ✅ Request/response error handling
 
 #### Backend Server
+
 - ✅ Fixed typo: `porfileRoutes` → `profileRoutes`
 - ✅ Proper port binding to `0.0.0.0` for Vercel compatibility
 - ✅ Increased JSON payload limit to 10MB
@@ -104,6 +110,7 @@ Before deploying to Vercel, ensure:
 ## 🚀 Deployment Steps
 
 ### 1. Push to GitHub
+
 ```bash
 git add .
 git commit -m "Prepare for production deployment"
@@ -162,15 +169,18 @@ BASE_URL=https://yourdomain.com
 ## 📊 Monitoring & Maintenance
 
 ### Logs
+
 - Vercel provides logs at: https://vercel.com/[username]/[project]/logs
 - Check logs for errors after deployment
 
 ### Performance
+
 - Monitor build times
 - Check API response times
 - Monitor database query performance
 
 ### Updates
+
 - Keep dependencies up to date: `pnpm update`
 - Monitor security advisories: `pnpm audit`
 - Review new Helmet/Rate Limit configurations periodically
@@ -178,16 +188,19 @@ BASE_URL=https://yourdomain.com
 ## 🐛 Troubleshooting
 
 ### Build Fails
+
 1. Check `pnpm run build` works locally
 2. Verify all environment variables are set in Vercel
 3. Check Node.js version compatibility
 
 ### API Errors
+
 1. Verify `DATABASE_URL` and `OPENROUTER_KEY` in production
 2. Check CORS settings match your domain
 3. Test health endpoint: `/health`
 
 ### Slow Performance
+
 1. Check database query performance
 2. Monitor rate limiting (may be too aggressive)
 3. Optimize bundle size: `pnpm run build` and review output
@@ -195,6 +208,7 @@ BASE_URL=https://yourdomain.com
 ## 📞 Support
 
 For issues:
+
 1. Check Vercel documentation: https://vercel.com/docs
 2. Review application logs in Vercel dashboard
 3. Check environment variables are correctly set

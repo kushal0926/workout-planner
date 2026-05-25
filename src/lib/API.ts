@@ -6,10 +6,7 @@ const BASE_URL = import.meta.env["VITE_API_URL"] || "http://localhost:5001";
 // Add a request timeout utility
 const TIMEOUT_MS = 30000;
 
-const fetchWithTimeout = async (
-  url: string,
-  options: RequestInit = {}
-): Promise<Response> => {
+const fetchWithTimeout = async (url: string, options: RequestInit = {}): Promise<Response> => {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
